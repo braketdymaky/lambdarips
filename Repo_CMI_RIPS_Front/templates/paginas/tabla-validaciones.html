@@ -1,0 +1,73 @@
+{% block tabla-validaciones %}
+    {% if nit == None %}
+        <div class="row">
+            <div class="col-12">
+                <p>El NIT del cliente no se encuentra registrado en la base de datos.</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12 mb-3">
+                <form method="POST" action="{% url 'guardar' %}" class="form mb-1"
+                      id="guardar-validaciones-form">
+                    {% csrf_token %}
+                    <input id="nit" name="nit" type="hidden" value="{{ nit }}">
+                    <input id="token" name="token" type="hidden" value="{{ token }}">
+                    <input id="cliente" name="datos" type="hidden" value="{{ cliente }}">
+                    <input id="prestador" name="datos" type="hidden" value="{{ prestador }}">
+                    <table class="table table-hover table-bordered" id="tabla-validaciones">
+                        <thead class="thead-dark text-center">
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Archivo</th>
+                            <th scope="col">Validación</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if lista_validaciones %}
+                            {% for validacion in lista_validaciones %}
+                                <tr>
+                                    <th scope="row">{{ validacion.cdcodigo }}</th>
+                                    <td>{{ validacion.dsarchivo }}</td>
+                                    <td>{{ validacion.dsdescripcion }}</td>
+                                    <td>{{ validacion.dstipo }}</td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   id="check[{{ validacion.cdcodigo }}]"
+                                                   name="{{ validacion.cdcodigo }}"
+                                                    {% if nmcodigos is None or validacion.cdcodigo not in nmcodigos %}
+                                                   checked
+                                                    {% endif %}
+                                                    {% if validacion.sndinamico == 0 %}
+                                                   disabled
+                                                    {% endif %}>
+                                            <label class="custom-control-label"
+                                                   for="check[{{ validacion.cdcodigo }}]">
+                                                {% if nmcodigos is None or validacion.cdcodigo not in nmcodigos %}
+                                                    Activa {% else %} Inactiva
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary m-1" id="btn-guardar" data-toggle="modal" data-target="#guardarModal"
+                            type="button">Guardar</button>
+                    <button class="btn btn-danger m-1" id="btn-cancelar" data-toggle="modal" data-target="#cancelarModal"
+                            type="button">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        {% block dialogos %}
+            {%  include 'paginas/dialogos.html' %}
+        {% endblock %}
+
+    {% endif %}
+{% endblock %}

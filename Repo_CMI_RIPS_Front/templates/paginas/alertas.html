@@ -1,0 +1,17 @@
+{% block alertas %}
+
+    <div class="alert-top2 alert alert-success fade show" id="alerta-exito">
+        <button type="button" class="close" onclick="$('#alerta-exito').hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Éxito!</strong> Guardado correctamente.
+    </div>
+
+    <div class="alert-top alert alert-danger fade show" id="alerta-error">
+        <button type="button" class="close" onclick="$('#alerta-error').hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Error!</strong> Hubo un error al guardar los cambios en las validaciones.
+    </div>
+
+{% endblock %}

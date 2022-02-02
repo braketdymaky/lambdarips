@@ -1,0 +1,65 @@
+.custom-file-input, .custom-file-label::after {
+    content: "Examinar" !important;
+    background-color: darkgray !important;
+    color: white;
+}
+
+.form-inline {
+    display: inline-block;
+    background-color: gray !important;
+}
+
+#spinner-cargando, #resultado, .alert-top, .alert-top2 {
+    display: none;
+}
+
+.alert-top {
+    position: fixed !important;
+    z-index: 1000 !important;
+    top: 5% !important;
+    left: 2% !important;
+    width: 96% !important;
+}
+
+.alert-top {
+    position: fixed !important;
+    z-index: 1000 !important;
+    top: 15% !important;
+    left: 2% !important;
+    width: 96% !important;
+}
+
+p{
+    font-size: 1em;
+}
+
+.contenedor{
+    background-color: rgb(23, 185, 160);
+    color: white;
+}
+
+.titulo {
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(23, 164, 128);
+    color: white;
+}
+
+.div-texto{
+    background-color: rgb(23, 164, 128);
+    color: white;
+}
+
+.st0{
+    fill:#ffffff;
+}
+
+.btn-validar {
+    background-color: rgb(23, 164, 128);
+    color: white;
+}
+
+.btn-cancelar {
+    color: rgb(23, 164, 128);
+    background-color: rgb(227, 232, 230);
+}

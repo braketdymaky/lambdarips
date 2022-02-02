@@ -1,0 +1,62 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'dataTables/datatables.min.css' %}">
+    <title>Validaciones RIPS</title>
+</head>
+<body>
+<div class="container p-2">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Validaciones RIPS</h2>
+            <p class="text-justify">En esta sección se configuran las validaciones que se ejecutarán sobre los RIPS para
+                un cliente especifico, marcando las que se ejecutarán sobre todos los prestadores de este, para iniciar
+                ingresa el NIT del cliente en el recuadro.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <form class="form"
+                  action="/validaciones/?token={{ token }}&cliente= {{ cliente }}&prestador={{ prestador }}"
+                  method="POST" id="consultar-nit">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-xs-4">
+                        {{ form }}
+                    </div>
+                    <div class="col-xd-8 pt-4">
+                        <input class="btn btn-primary mt-2" type="submit" value="Consultar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if request.POST.nit %}
+        {% block tabla-validaciones %}
+            {% include 'paginas/tabla-validaciones.html' with nit=nit lista_validaciones=lista_validaciones nmcodigos=nmcodigos token=token cliente=ciente prestador=prestador %}
+        {% endblock %}
+    {% endif %}
+
+    {% block alertas %}
+        {% include 'paginas/alertas.html' %}
+    {% endblock %}
+</div>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dataTables/datatables.min.js' %}"></script>
+<script src="{% static 'js/validaciones.js' %}"></script>
+
+</body>
+</html>

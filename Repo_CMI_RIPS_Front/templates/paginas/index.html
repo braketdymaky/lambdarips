@@ -1,0 +1,94 @@
+﻿{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href=" {% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Rips</title>
+</head>
+<body>
+<div class="container-fluid contenedor text-center">
+    <div class="row titulo p-1">
+        <h4 class="font-weight-bold">Malla validadora para certificar la estructura <br> y calidad de archivos RIPS</h4>
+    </div>
+    <br/>
+    <div class="row pl-1">
+        <div class="col-md-2 mt-0 align-middle">
+            <img src="{% static 'images/RIPS.png' %}" width="75%" alt="RIPS-logo">
+            <div class="justify-content-center">
+                <br/>
+                <h4>¿Cómo validar RIPS?</h4>
+            </div>
+        </div>
+
+        <div class="col-md-10  mt-0 pr-0 pb-0">
+            <div class="div-texto mb-1 p-1 ">
+                <p class="text-justify mb-0">Cargue el archivo .ZIP con el número de remisión
+                    utilizando el botón examinar. Asegure que el archivo .txt en el .ZIP (AC, AD, AF, AH, AM, AN, AP,
+                    AT, AU, CT, US) esté guardado con la codificación UFT-8.</p>
+            </div>
+            <div class="div-texto mb-1 p-1">
+                <p class="text-justify mb-0">La validación se realizará en dos etapas: ESTRUCTURA y DATOS, en caso que
+                    existan errores se generará un archivo (.ZIP) con los errores según la etapa del proceso donde se
+                    hayan encontrado (ESTRUCTURA o DATOS).</p>
+            </div>
+            <div class="div-texto mb-1 p-1 ">
+                <p class="text-justify mb-0">Los .ZIP de ERRORES presentarán todos los errores de su tipo en un archivo
+                    nombrado según el origen de las inconsistencias (AC, AD, AF, AH, AM, AN, AP, AT, AU, CT, US).</p>
+            </div>
+            <div class="div-texto mb-1 p-1 mb-0">
+                <p class="text-justify mb-0">Si la validación es correcta se cargará el RIPS, se presentará el mensaje de
+                    carga exitosa y se generará un PDF con la información de las facturas (AF) cargadas.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-1 p-1">
+        <div class="col-12 text-center w-auto">
+            <form method="POST" action="{% url 'cargar-archivo-rips' %}"
+                  class="form" id="validar-zip" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input id="datos" name="datos" type="hidden" value="{{ datos }}">
+                <div class="custom-file mb-2 text-center">
+                    <input type="file" class="form-group custom-file-input" accept=".zip" id="archivo_zip"
+                           name="archivo_zip" required>
+                    <label class="custom-file-label font-weight-bold" for="cargar_zip" id="custom_file_label">Seleccionar
+                        archivo
+                        zip</label>
+                </div>
+                <button class="btn btn-validar m-1  btn-lg" id="btn-validar" type="submit">Validar</button>
+                <button class="btn btn-cancelar m-1 btn-lg" id="btn-cancelar-rips" type="button"
+                        style="display: none"
+                        onclick="cancelarPeticion()">Cancelar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2" id="spinner-cargando">
+        <div class="col-12 pb-1">
+            <h5 id="spinner-mensaje">1. Validando estructura del RIPS...</h5>
+            <div class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2" id="resultado">
+        <div class="col-12 pb-1">
+            <h5 id="resultado-mensaje">RIPS validado exitosamente</h5>
+        </div>
+    </div>
+
+</div>
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/cargar-archivo-rips.js' %}"></script>
+</body>
+</html>

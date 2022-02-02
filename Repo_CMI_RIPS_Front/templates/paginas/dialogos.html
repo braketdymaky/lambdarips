@@ -1,0 +1,45 @@
+{% block dialogos %}
+    <!-- Modal dialogo cancelar -->
+    <div class="modal fade" id="cancelarModal" tabindex="-1" role="dialog"
+         aria-labelledby="cancelarModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelarModalTitle">CANCELAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que desea cancelar la selección de reglas a validar?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onClick="location=URL">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal dialogo guardar -->
+    <div class="modal fade" id="guardarModal" tabindex="-1" role="dialog"
+         aria-labelledby="guardarModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guardarModalTitle">GUARDAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Desea guardar los cambios en las validaciones para el cliente con NIT <b>{{ nit }}</b>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="guardar-validaciones">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
